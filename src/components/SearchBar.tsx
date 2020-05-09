@@ -1,10 +1,15 @@
 import React from "react";
 
-class SearchBar extends React.Component {
+interface Props {
+  onSubmit(term: string): void;
+}
+
+class SearchBar extends React.Component<Props> {
   state = { term: "" };
 
   onFormSubmit = (e: any) => {
     e.preventDefault();
+    this.props.onSubmit(this.state.term);
   };
 
   render(): JSX.Element {
