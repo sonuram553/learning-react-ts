@@ -1,4 +1,5 @@
 import React from "react";
+import "./ImageList.scss";
 
 interface Image {
   urls: { regular: string };
@@ -12,18 +13,10 @@ interface Props {
 
 const ImageList = (props: Props) => {
   const imgTags = props.images.map(({ urls, description, id }) => {
-    return (
-      <img
-        style={{ display: "block", margin: "0 auto" }}
-        src={urls.regular}
-        alt={description}
-        width="500"
-        key={id}
-      />
-    );
+    return <img src={urls.regular} alt={description} key={id} />;
   });
 
-  return <div>{imgTags}</div>;
+  return <div className="image-list">{imgTags}</div>;
 };
 
 export default ImageList;
