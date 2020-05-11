@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import youTube from "../apis/youtube";
 import VideoList from "./VideoList";
 import { Video } from "../types";
+import VideoDetail from "./VideoDetail";
 
 interface State {
   videos: Video[];
@@ -26,7 +27,6 @@ class App extends React.Component {
   };
 
   onSelectVideo = (video: Video) => {
-    console.log("Video selected", video);
     this.setState({ selectedVideo: video });
   };
 
@@ -34,6 +34,7 @@ class App extends React.Component {
     return (
       <div className="ui container" style={{ paddingTop: "20px" }}>
         <SearchBar onSubmit={this.onSubmit} />
+        <VideoDetail />
         <VideoList
           onSelectVideo={this.onSelectVideo}
           videos={this.state.videos}
