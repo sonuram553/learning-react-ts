@@ -16,7 +16,7 @@ const VideoItem = (props: Props) => {
       <img
         className="ui image video-item__image"
         src={thumbnails.high.url}
-        alt="Video thumbnail"
+        alt={video.snippet.title}
       />
 
       <div className="content">
