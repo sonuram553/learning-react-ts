@@ -16,6 +16,10 @@ class App extends React.Component {
     selectedVideo: null,
   };
 
+  componentDidMount() {
+    this.onSubmit("cars");
+  }
+
   onSubmit = async (term: string): Promise<void> => {
     const res = await youTube.get("search", {
       params: {
@@ -23,10 +27,13 @@ class App extends React.Component {
       },
     });
 
-    this.setState({ videos: res.data.items });
+    this.setState({
+      videos: res.data.items,
+      selectedVideo: res.data.items[0],
+    });
   };
 
-  onSelectVideo = (video: Video) => {
+  onSelectVideo = (video: Video | null) => {
     this.setState({ selectedVideo: video });
   };
 
