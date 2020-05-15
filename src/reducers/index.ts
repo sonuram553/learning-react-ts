@@ -22,7 +22,11 @@ const selectedSongReducer = (
   }
 };
 
-export default combineReducers({
+const rootReducer = combineReducers({
   songs: songsReducer,
   selectedSong: selectedSongReducer,
 });
+
+export default rootReducer;
+
+export type RootState = ReturnType<typeof rootReducer>;
