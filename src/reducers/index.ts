@@ -1,6 +1,11 @@
 import { combineReducers } from "redux";
 
-const songsReducer = () => {
+export interface Song {
+  title: string;
+  duration: string;
+}
+
+const songsReducer = (): Song[] => {
   return [
     { title: "No Scrubs", duration: "4:05" },
     { title: "Macarena", duration: "3:00" },
@@ -10,9 +15,9 @@ const songsReducer = () => {
 };
 
 const selectedSongReducer = (
-  selectedSong = null,
-  action: { type: string; payload?: any }
-) => {
+  selectedSong: Song | null = null,
+  action: { type: string; payload: Song }
+): Song | null => {
   switch (action.type) {
     case "SELECT_SONG":
       return action.payload;
