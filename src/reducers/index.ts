@@ -1,5 +1,8 @@
 import { combineReducers } from "redux";
 
-export default combineReducers({
+const rootReducer = combineReducers({
   replaceMe: () => 9,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
+export default rootReducer;
