@@ -2,6 +2,7 @@ import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { fetchPosts } from "../actions";
 import { RootState } from "../reducers";
+import UserHeader from "./UserHeader";
 
 class PostList extends React.Component<PropsFromRedux> {
   componentDidMount() {
@@ -17,6 +18,8 @@ class PostList extends React.Component<PropsFromRedux> {
             <div className="description">
               <h3>{post.title}</h3>
               <p>{post.body}</p>
+
+              <UserHeader userId={post.userId} />
             </div>
           </div>
         </div>

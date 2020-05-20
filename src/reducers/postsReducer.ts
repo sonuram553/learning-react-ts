@@ -1,9 +1,10 @@
-import { FetchPostsAction } from "../actions";
+import { RootActions } from "../actions";
 
 export interface Post {
   title: string;
   body: string;
   id: number;
+  userId: number;
 }
 
 /* interface PostState {
@@ -16,10 +17,7 @@ const initialState: PostState = {
 
 const initialState: Post[] = [];
 
-export default (
-  state: Post[] = initialState,
-  action: FetchPostsAction
-): Post[] => {
+export default (state: Post[] = initialState, action: RootActions): Post[] => {
   switch (action.type) {
     case "FETCH_POSTS":
       return action.payload;
