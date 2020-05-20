@@ -1,25 +1,29 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { fetchPosts } from "../actions";
+import { RootState } from "../reducers";
 
-interface Props {
-  fetchPosts: typeof fetchPosts;
-}
-
-class PostList extends React.Component<Props> {
+class PostList extends React.Component<PropsFromRedux> {
   componentDidMount() {
     this.props.fetchPosts();
   }
 
   render() {
-    return <div>PostList</div>;
+    return (
+      <div>
+        PostList
+        {this.props.posts.length}
+      </div>
+    );
   }
 }
 
-/* const mapStateToProps = (state: any) => {
-  return { posts: state.posts };
+const mapStateToProps = (state: RootState) => {
+  return { posts: state.postState.posts };
 };
- */
-export default connect(null, {
-  fetchPosts,
-})(PostList);
+
+const connector = connect(mapStateToProps, { fetchPosts });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(PostList);
