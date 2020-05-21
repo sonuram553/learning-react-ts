@@ -18,6 +18,23 @@ export interface FetchUser {
 
 export type RootActions = FetchPostsAction | FetchUser;
 
+export const fetchPostsAndUsers = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  Action<string>
+> => {
+  return async (dispatch, getState) => {
+    await dispatch(fetchPosts());
+
+    _.chain(getState().posts)
+      .map("userId")
+      .uniq()
+      .forEach((id) => dispatch(fetchUser(id)))
+      .value()
+  };
+};
+
 export const fetchPosts = (): ThunkAction<
   void,
   RootState,
@@ -29,7 +46,16 @@ export const fetchPosts = (): ThunkAction<
   dispatch({ type: "FETCH_POSTS", payload: res.data });
 };
 
-const _fetchUser = _.memoize(async (userId: number, dispatch) => {
+export const fetchUser = (
+  userId: number
+): ThunkAction<void, RootState, unknown, Action<string>> => async (
+  dispatch
+) => {
+  const res = await jsonPlaceholder.get(`users/${userId}`);
+  dispatch({ type: "FETCH_USER", payload: res.data });
+};
+
+/* const _fetchUser = _.memoize(async (userId: number, dispatch) => {
   const res = await jsonPlaceholder.get(`users/${userId}`);
   dispatch({ type: "FETCH_USER", payload: res.data });
 });
@@ -37,4 +63,4 @@ const _fetchUser = _.memoize(async (userId: number, dispatch) => {
 export const fetchUser = (
   userId: number
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch) =>
-  _fetchUser(userId, dispatch);
+  _fetchUser(userId, dispatch); */
