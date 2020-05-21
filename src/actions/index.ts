@@ -4,6 +4,7 @@ import { Action } from "redux";
 import { RootState } from "../reducers";
 import { Post } from "../reducers/postsReducer";
 import { User } from "../reducers/userReducer";
+import _ from "lodash";
 
 export interface FetchPostsAction {
   type: "FETCH_POSTS";
@@ -28,11 +29,12 @@ export const fetchPosts = (): ThunkAction<
   dispatch({ type: "FETCH_POSTS", payload: res.data });
 };
 
-export const fetchUser = (
-  userId: number
-): ThunkAction<void, RootState, unknown, Action<string>> => async (
-  dispatch
-) => {
+const _fetchUser = _.memoize(async (userId: number, dispatch) => {
   const res = await jsonPlaceholder.get(`users/${userId}`);
   dispatch({ type: "FETCH_USER", payload: res.data });
-};
+});
+
+export const fetchUser = (
+  userId: number
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch) =>
+  _fetchUser(userId, dispatch);
