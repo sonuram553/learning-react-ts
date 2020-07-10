@@ -1,4 +1,5 @@
 import React from "react";
+import UserCreate from "./UserCreate";
 
 interface State {
   language: string;
@@ -23,6 +24,8 @@ class App extends React.Component<Props, State> {
             onClick={() => this.setState({ language: "dutch" })}
           ></i>
         </div>
+
+        <UserCreate />
       </div>
     );
   }
